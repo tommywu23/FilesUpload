@@ -51,7 +51,7 @@ app.use(multer({
     dest: './uploads/',
     onFileUploadComplete: function (file, req, res) {
         var path = global.path + "/" + req.url.replace('/file/',"");
-        var filepath = path + "/" + file.name;
+        var filepath = path + "/" + file.originalname;
         ncp(file.path, filepath, function (err) {
             if (err) {
                 console.log(err);
@@ -60,7 +60,7 @@ app.use(multer({
 
         });
 
-        res.send('{"finish":"' + file.name + '"}');
+        res.send('{"finish":"' + file.originalname + '"}');
     },
 
     onFileUploadStart: function (file, req, res) {
